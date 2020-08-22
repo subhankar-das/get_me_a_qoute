@@ -1,4 +1,5 @@
 import React from 'react';
+import img from './qt.png';
 import './App.css';
 
 class App extends React.Component {
@@ -9,7 +10,7 @@ class App extends React.Component {
     this.state = {
       qoutes: [],
       qouteIndex: 1,
-      fadeIn: false,
+      fadeIn: true,
     }
   }
 
@@ -25,12 +26,18 @@ class App extends React.Component {
   }
 
   getNewQoute = () => {
-    const length = this.state.qoutes.length;
-    const random = Math.floor(Math.random() * length);
     this.setState({
-      qouteIndex: random,
-      fadeIn: true
+      fadeIn: false
     })
+    setTimeout(() => {
+      const length = this.state.qoutes.length;
+      const random = Math.floor(Math.random() * length);
+      this.setState({
+        qouteIndex: random,
+        fadeIn: true
+      })
+    }, 200)
+
   }
 
   componentDidMount() {
@@ -42,12 +49,27 @@ class App extends React.Component {
       <div className="App">
         <div className="card-wrapper">
           <div className="card">
-            <p className="fade-in">{this.state.qoutes.length > 0 ? this.state.qoutes[this.state.qouteIndex].text : 'NA'}</p>
-            <p className="fade-in">{this.state.qoutes.length > 0 ? (<><span>&#8208;</span>{this.state.qoutes[this.state.qouteIndex].author ? this.state.qoutes[this.state.qouteIndex].author : 'Anonymous'}</>) : 'NA'}</p>
+            {
+              this.state.qoutes.length > 0 ?
+                (
+                  <>
+                    <div className="bg-image"></div>
+                      <div className="qoute-wrapper">
+                        <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? this.state.qoutes[this.state.qouteIndex].text : 'NA'}</p>
+                        <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? (<><span>&#8208;</span>{this.state.qoutes[this.state.qouteIndex].author ? this.state.qoutes[this.state.qouteIndex].author : 'Anonymous'}</>) : 'NA'}</p>
+                      </div>
+                  </>
+                )
+                :
+                (
+                  <div className="loader"></div>
+                )
+            }
+
           </div>
           <button onClick={this.getNewQoute}>NEXT</button>
         </div>
-      </div>
+      </div >
     );
   }
 }
