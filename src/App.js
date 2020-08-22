@@ -1,5 +1,4 @@
 import React from 'react';
-import img from './qt.png';
 import './App.css';
 
 class App extends React.Component {
@@ -9,7 +8,7 @@ class App extends React.Component {
 
     this.state = {
       qoutes: [],
-      qouteIndex: 1,
+      qouteIndex: Math.floor(Math.random() * 100),
       fadeIn: true,
     }
   }
@@ -49,15 +48,15 @@ class App extends React.Component {
       <div className="App">
         <div className="card-wrapper">
           <div className="card">
+            <div className="bg-image"></div>
             {
               this.state.qoutes.length > 0 ?
                 (
                   <>
-                    <div className="bg-image"></div>
-                      <div className="qoute-wrapper">
-                        <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? this.state.qoutes[this.state.qouteIndex].text : 'NA'}</p>
-                        <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? (<><span>&#8208;</span>{this.state.qoutes[this.state.qouteIndex].author ? this.state.qoutes[this.state.qouteIndex].author : 'Anonymous'}</>) : 'NA'}</p>
-                      </div>
+                    <div className="qoute-wrapper">
+                      <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? this.state.qoutes[this.state.qouteIndex].text : 'NA'}</p>
+                      <p className={this.state.fadeIn ? 'fade-in' : 'fade-out'}>{this.state.qoutes.length > 0 ? (<><span>&#8208;</span>{this.state.qoutes[this.state.qouteIndex].author ? this.state.qoutes[this.state.qouteIndex].author : 'Anonymous'}</>) : 'NA'}</p>
+                    </div>
                   </>
                 )
                 :
